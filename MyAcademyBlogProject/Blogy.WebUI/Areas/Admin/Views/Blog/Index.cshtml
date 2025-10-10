@@ -1,0 +1,36 @@
+@model List<ResultBlogDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+
+<h3>Bloglar</h3>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>#</th>
+        <th>Blog Başlığı</th>
+        <th>Açıklama</th>
+        <th>Kategoriler</th>
+        <th>İşlemler</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <td><img src="@item.CoverImage" style="height:75px;width:75px" /> @item.Title</td>
+            <td>@item.Description</td>
+            <td>@item.Category.CategoryName</td>
+            <td>
+                <a href="/Admin/Blog/DeleteBlog/@item.Id" onclick="return confirm('Bu öğeyi kalıcı olarak silmek istediğinizden emin misiniz?')" class="btn btn-danger">Sil</a>
+                <a href="/Admin/Blog/UpdateBlog/@item.Id" class="btn btn-info">Güncelle</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="/Admin/Blog/CreateBlog" class="btn btn-primary">Yeni Blog Oluştur</a>
+

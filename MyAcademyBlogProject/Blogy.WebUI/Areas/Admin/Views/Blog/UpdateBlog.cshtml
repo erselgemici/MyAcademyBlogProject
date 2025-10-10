@@ -1,0 +1,38 @@
+@model UpdateBlogDto
+@{
+    ViewData["Title"] = "Blog Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Blog Güncelle</h3>
+
+<form method="post">
+    <input type="hidden" asp-for="Id"/>
+    <label>Blog Başlığı</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <span class="text-danger" asp-validation-for="Title"></span>
+    <br />
+    <label>Açıklama</label>
+    <textarea type="text" asp-for="Description" class="form-control" rows="6"></textarea>
+    <span class="text-danger" asp-validation-for="Description"></span>
+    <br />
+    <label>Kapak Resmi</label>
+    <input type="text" asp-for="CoverImage" class="form-control" />
+    <span class="text-danger" asp-validation-for="CoverImage"></span>
+    <br />
+    <label>Blog Resmi 1</label>
+    <input type="text" asp-for="BlogImage1" class="form-control" />
+    <span class="text-danger" asp-validation-for="BlogImage1"></span>
+    <br />
+    <label>Blog Resmi 2</label>
+    <input type="text" asp-for="BlogImage2" class="form-control" />
+    <span class="text-danger" asp-validation-for="BlogImage2"></span>
+    <br />
+    <label>Kategori</label>
+    <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.categories">
+        <option selected>Kategori Seçiniz</option>
+    </select>
+    <span class="text-danger" asp-validation-for="CategoryId"></span>
+    <br />
+    <button class="btn btn-primary mt-2">Güncelle</button>
+</form>
