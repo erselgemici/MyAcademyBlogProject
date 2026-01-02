@@ -79,6 +79,3 @@ Proje, **Clean Code** ve **SoC (Separation of Concerns)** prensiplerine uygun ol
 <img width="941" height="394" alt="image" src="https://github.com/user-attachments/assets/52289aaa-03e2-4a4e-9922-6b5705e34156" />
 
 
-
-* [LinkedIn Profilim]((https://www.linkedin.com/in/ersel-gemici/))
-* [Email](erselgemici.eg@gmail.com)
