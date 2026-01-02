@@ -39,6 +39,26 @@ namespace Blogy.Business.Services.CategoryServices
             return _mapper.Map<UpdateCategoryDto>(category);
         }
 
+        public async Task<List<ResultCategoryDto>> GetCategoriesWithBlogAsync()
+        {
+            var categories = await _categoryRepository.GetCategoriesWithBlogAsync();
+            return _mapper.Map<List<ResultCategoryDto>>(categories);
+        }
+
+        public List<ResultCategoryDto> GetCategoriesWithCount()
+        {
+            var repoData = _categoryRepository.GetCategoriesWithCount();
+            // Gelen veriyi, UI'ın istediği DTO formatına çevir
+            var result = repoData.Select(x => new ResultCategoryDto
+            {
+                Id = x.Id,
+                CategoryName = x.CategoryName,
+                Count = x.Count
+            }).ToList();
+
+            return result;
+        }
+
         public async Task UpdateAsync(UpdateCategoryDto updateCategoryDto)
         {
             var category = _mapper.Map<Category>(updateCategoryDto);

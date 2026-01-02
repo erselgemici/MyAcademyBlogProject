@@ -1,0 +1,25 @@
+@using Blogy.Business.DTOs.BlogDtos
+@model List<ResultBlogDto>
+
+<ul class="list-unstyled">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="/Blog/BlogDetails/@item.Id" class="d-flex align-items-center">
+
+                <img src="@(string.IsNullOrEmpty(item.CoverImage) ? "/blogy-1.0.0/images/img_1_sq.jpg" : item.CoverImage)"
+                     alt="Image placeholder"
+                     class="me-4 rounded"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+
+                <div class="text">
+                    <h4>@item.Title</h4>
+
+                    <div class="post-meta">
+                        <span class="mr-2">@(((DateTime)item.CreatedDate).ToString("dd MMMM yyyy"))</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    }
+</ul>

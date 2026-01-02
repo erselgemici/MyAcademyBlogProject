@@ -1,0 +1,52 @@
+@model Blogy.Business.DTOs.UserDtos.EditProfileDto
+
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Areas/Writer/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body text-center">
+
+            <h4 class="card-title text-left">Profil Bilgilerim</h4>
+
+            <div class="mb-4">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Profil" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #eee;" />
+                }
+                else
+                {
+                    <img src="~/writer/assets/images/faces/face1.jpg" alt="Varsayılan" style="width: 150px; border-radius: 50%;" />
+                }
+            </div>
+
+            <h3 class="font-weight-bold">@Model.FirstName @Model.LastName</h3>
+            <p class="text-muted mb-4">@Model.UserName</p>
+
+            <div class="row justify-content-center text-left">
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold">Email:</span>
+                            <span>@Model.Email</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold">Telefon:</span>
+                            <span>@(Model.PhoneNumber ?? "Belirtilmemiş")</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <br />
+            <a href="/Writer/Profile/EditProfile" class="btn btn-primary btn-lg mt-3">
+                <i class="typcn typcn-edit"></i> Bilgilerimi Düzenle
+            </a>
+            <a href="/Writer/ChangePassword/Index" class="btn btn-warning btn-lg mt-3 ml-2">
+                <i class="typcn typcn-key-outline"></i> Şifremi Değiştir
+            </a>
+        </div>
+    </div>
+</div>

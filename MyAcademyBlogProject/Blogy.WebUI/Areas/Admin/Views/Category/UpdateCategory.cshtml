@@ -1,16 +1,35 @@
 @model UpdateCategoryDto
 @{
-    ViewData["Title"] = "UpdateCategory";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
 }
 
-<h1>Kategori Güncelle</h1>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-info shadow-dark border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3 mb-0">Kategori Güncelle</h6>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="Id" />
 
-<form method="post">
-    <input type="hidden" asp-for="Id"/>
-    <label>Kategori Adı</label>
-    <input type="text" asp-for="Name" class="form-control" />
-    <span class="text-danger" asp-validation-for="Name"></span>
-    <br />
-    <button class="btn btn-primary">Güncelle</button>
-</form>
+                        <div class="input-group input-group-outline mb-4 is-filled">
+                            <label class="form-label">Kategori Adı</label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger text-xs"></span>
+
+                        <div class="d-flex justify-content-end">
+                            <a href="/Admin/Category/Index" class="btn btn-outline-secondary me-2">Vazgeç</a>
+                            <button type="submit" class="btn bg-gradient-info">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

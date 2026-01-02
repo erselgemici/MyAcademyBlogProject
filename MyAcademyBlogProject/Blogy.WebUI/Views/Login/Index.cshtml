@@ -1,0 +1,53 @@
+@model LoginDto
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-lg border-0" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-4">
+                            <h3 class="font-weight-bold text-dark">Hoş Geldiniz</h3>
+                            <p class="text-muted">Devam etmek için lütfen giriş yapın</p>
+                        </div>
+
+                        <form method="post">
+                            <div class="form-floating mb-4 text-start">
+                                <label style="font-weight:600; color:#6c757d">Kullanıcı Adı</label>
+                                <input type="text" class="form-control form-control-lg" asp-for="UserName" required style="border-radius: 0.5rem;" />
+                            </div>
+
+                            <div class="form-floating mb-4 text-start">
+                                <label   style="font-weight:600; color:#6c757d">Şifre</label>
+                                <input type="password" class="form-control form-control-lg" asp-for="Password" required style="border-radius: 0.5rem;" />
+                            </div>
+
+                            <div class="text-danger mb-3" style="font-size: 0.9rem;">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+
+                            <button class="btn btn-primary btn-lg btn-block w-100" type="submit" style="border-radius: 0.5rem; padding: 12px;">
+                                <i class="fas fa-sign-in-alt me-2"></i> Giriş Yap
+                            </button>
+
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-center align-items-center">
+                                <p class="mb-0 me-2 text-muted">Hesabınız yok mu?</p>
+                                <a href="/Register/Index" class="text-primary font-weight-bold" style="text-decoration: none;">
+                                    Hemen Kayıt Ol
+                                </a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,153 @@
+
+@*
+    Admin Navbar Component
+*@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    string currentController = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
+
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand px-4 py-3 m-0" href="/Admin/Dashboard/Index">
+            <img src="~/material-dashboard-master/assets/img/logo-ct-dark.png" class="navbar-brand-img" width="26" height="26" alt="main_logo">
+            <span class="ms-1 text-sm text-dark">Blogy Admin</span>
+        </a>
+    </div>
+
+    <hr class="horizontal dark mt-0 mb-2">
+
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Dashboard" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Dashboard/Index">
+                    <i class="material-symbols-rounded opacity-5">dashboard</i>
+                    <span class="nav-link-text ms-1">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">İçerik Yönetimi</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Blog" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Blog/Index">
+                    <i class="material-symbols-rounded opacity-5">article</i>
+                    <span class="nav-link-text ms-1">Bloglar</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Category" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Category/Index">
+                    <i class="material-symbols-rounded opacity-5">category</i>
+                    <span class="nav-link-text ms-1">Kategoriler</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Tag" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Tag/Index">
+                    <i class="material-symbols-rounded opacity-5">label</i> <span class="nav-link-text ms-1">Etiketler</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Comment" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Comment/Index">
+                    <i class="material-symbols-rounded opacity-5">comment</i>
+                    <span class="nav-link-text ms-1">Yorumlar</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Site Yönetimi</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "About" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/About/Index">
+                    <i class="material-symbols-rounded opacity-5">info</i> <span class="nav-link-text ms-1">Hakkımızda</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Address" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Address/Index">
+                    <i class="material-symbols-rounded opacity-5">business</i> <span class="nav-link-text ms-1">İletişim Bilgileri</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Social" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Social/Index">
+                    <i class="material-symbols-rounded opacity-5">share</i> <span class="nav-link-text ms-1">Sosyal Medya</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Gelen Kutusu</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Contact" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Contact/Index">
+                    <i class="material-symbols-rounded opacity-5">email</i>
+                    <span class="nav-link-text ms-1">Gelen Mesajlar</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Kullanıcı İşlemleri</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Role" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Role/Index">
+                    <i class="material-symbols-rounded opacity-5">admin_panel_settings</i>
+                    <span class="nav-link-text ms-1">Roller</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Users" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Users/Index">
+                    <i class="material-symbols-rounded opacity-5">group</i>
+                    <span class="nav-link-text ms-1">Kullanıcı Listesi</span>
+                </a>
+            </li>
+
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Hesap</h6>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Profile" || currentController == "ChangePassword" ? "active bg-gradient-dark text-white" : "text-dark")"
+                   href="/Admin/Profile/Index">
+                    <i class="material-symbols-rounded opacity-5">person</i>
+                    <span class="nav-link-text ms-1">Profilim</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/Default/Index">
+                    <i class="material-symbols-rounded opacity-5">language</i>
+                    <span class="nav-link-text ms-1">Siteye Git</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/Login/LogOut">
+                    <i class="material-symbols-rounded opacity-5">logout</i>
+                    <span class="nav-link-text ms-1">Çıkış Yap</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

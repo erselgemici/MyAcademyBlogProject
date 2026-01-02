@@ -1,0 +1,58 @@
+@model List<ResultAddressDto>
+@{
+    ViewData["Title"] = "Adres Listesi";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
+                    <h6 class="text-white text-capitalize ps-3">İletişim Bilgileri</h6>
+                    <a href="/Admin/Address/CreateAddress" class="btn btn-sm btn-white text-primary me-3">Yeni Adres Ekle</a>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Adres</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">İletişim</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">@item.AddressDetail</h6>
+                                                <p class="text-xs text-secondary mb-0">@item.Description</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@item.Phone</p>
+                                        <p class="text-xs text-secondary mb-0">@item.Email</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="/Admin/Address/UpdateAddress/@item.Id" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-symbols-rounded text-sm me-2"></i>Düzenle
+                                        </a>
+                                        <a href="/Admin/Address/DeleteAddress/@item.Id" onclick="return confirm('Silmek istediğine emin misin?')" class="btn btn-link text-danger text-gradient px-3 mb-0">
+                                            <i class="material-symbols-rounded text-sm me-2"></i>Sil
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

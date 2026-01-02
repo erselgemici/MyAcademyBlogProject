@@ -1,0 +1,204 @@
+@model ResultBlogDto
+@{
+    ViewData["Title"] = "BlogDetails";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('@Model.CoverImage');">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-6">
+                <div class="post-entry text-center">
+                    <h1 class="mb-4">@Model.Title</h1>
+                    <div class="post-meta align-items-center text-center">
+                        <figure class="author-figure mb-0 me-3 d-inline-block"><img src="@Model.Writer.ImageUrl" alt="Image" class="img-fluid"></figure>
+                        <span class="d-inline-block mt-1">@Model.Writer.FullName</span>
+                        <span>&nbsp;-&nbsp; @Model.CreatedDate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+
+        <div class="row blog-entries element-animate">
+
+            <div class="col-md-12 col-lg-8 main-content">
+
+                <div class="post-content-body">
+
+                    <div class="row my-4">
+                        <div class="col-md-12 mb-4">
+                            <img src="@(string.IsNullOrEmpty(Model.CoverImage) ? "https://via.placeholder.com/800x400" : Model.CoverImage)"
+                                 alt="Cover Image"
+                                 class="img-fluid rounded"
+                                 style="width: 100%; max-height: 450px; object-fit: cover;">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <img src="@(string.IsNullOrEmpty(Model.BlogImage1) ? "https://via.placeholder.com/600x400" : Model.BlogImage1)"
+                                 alt="Blog Image 1"
+                                 class="img-fluid rounded"
+                                 style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <img src="@(string.IsNullOrEmpty(Model.BlogImage2) ? "https://via.placeholder.com/600x400" : Model.BlogImage2)"
+                                 alt="Blog Image 2"
+                                 class="img-fluid rounded"
+                                 style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                    </div>
+                    <style>
+                        .blog-content h1,
+                        .blog-content h2,
+                        .blog-content h3 {
+                            color: #000000 !important; 
+                            font-weight: 700 !important; 
+                            margin-top: 25px; 
+                            margin-bottom: 15px; 
+                        }
+
+                        .blog-content p {
+                            color: #333333; 
+                            font-size: 1.1rem; 
+                            line-height: 1.8; 
+                            margin-bottom: 20px;
+                        }
+                    </style>
+
+                    <div class="blog-content">
+                        @Html.Raw(Model.Description)
+                    </div>
+
+
+                </div>
+
+
+                <div class="pt-5">
+                    <p>Kategori:  <a href="#">@Model.Category.CategoryName</a>
+
+                </div>
+
+
+                <div class="pt-5 comment-wrap">
+                    <h3 class="mb-5 heading">@Model.Comments.Count Yorum</h3>
+                    <ul class="comment-list">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="comment">
+                                <div class="vcard">
+                                    <img src="@comment.User.ImageUrl" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                    <h3>@comment.User.FullName</h3>
+                                    <div class="meta">@comment.CreatedDate</div>
+                                    <p>@comment.Content</p>
+                                    @if (User.Identity.IsAuthenticated && comment.User.UserName == User.Identity.Name)
+                                    {
+                                        <div class="text-end" style="font-size: 0.85rem;">
+                                            <a href="/Comment/DeleteComment/@comment.Id"
+                                               class="text-danger text-decoration-none"
+                                               title="Yorumu Sil"
+                                               onclick="return confirm('Yorumu silmek istediğinize emin misiniz?');">
+                                                <i class="fa fa-trash-o"></i> Sil
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                    <!-- END comment-list -->
+                    
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Bir yorum bırakın</h3>
+
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger text-white font-weight-bold p-3">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success text-white font-weight-bold p-3">
+                                <i class="fa fa-check-circle"></i>
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+
+                        <form asp-action="AddComment" asp-controller="Comment" method="post" class="p-5 bg-light">
+                            <input type="hidden" name="BlogId" value="@Model.Id" />
+                            <div class="form-group">
+                                <label for="message">Yorumunuz *</label>
+                                <textarea name="Content" id="message" cols="30" rows="5" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Yorumu Gönder" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- END main-content -->
+
+            <div class="col-md-12 col-lg-4 sidebar">
+                <div class="sidebar-box search-form-wrap">
+                    <form action="#" class="sidebar-search-form">
+                        <span class="bi-search"></span>
+                        <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+                    </form>
+                </div>
+               
+                <!-- END sidebar-box -->
+                <div class="sidebar-box">
+                    <div class="post-entry-sidebar">
+                            @await Component.InvokeAsync("_DefaultBlogPopularPostsComponent")
+                    </div>
+                </div>
+                <!-- END sidebar-box -->
+                <div>
+                        @await Component.InvokeAsync("_CategoryListSidebarComponent")
+                </div>
+                <!-- END sidebar-box -->
+                <div>
+                    @await Component.InvokeAsync("_TagListSidebarComponent")
+                </div>
+               
+            </div>
+            <!-- END sidebar -->
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Mevcut stillerin altına ekle */
+
+    .post-content-body {
+        /* Yazı rengini tam siyah yap */
+        color: #000000 !important;
+        /* Yazı boyutunu çok az büyüt (Daha rahat okuma için) */
+        font-size: 18px !important;
+        /* Yazı kalınlığını artır (Normal: 400, Bold: 700. Biz 500-600 arası yapalım) */
+        font-weight: 500 !important;
+        /* Satır aralarını açarak ferahlık ver */
+        line-height: 1.8 !important;
+    }
+
+        /* Eğer içerik p etiketleri içindeyse onları da kapsasın */
+        .post-content-body p {
+            color: #000000 !important;
+            font-weight: 500 !important;
+        }
+</style>

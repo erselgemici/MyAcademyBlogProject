@@ -1,0 +1,27 @@
+@model CreateSocialDto
+@{
+    ViewData["Title"] = "Yeni Hesap";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="card my-4 mx-4">
+    <div class="card-header bg-gradient-dark pt-4 pb-3"><h6 class="text-white ps-3">Yeni Sosyal Medya Ekle</h6></div>
+    <div class="card-body">
+        <form method="post">
+            <div class="input-group input-group-outline mb-3">
+                <label class="form-label">Platform Adı (Örn: Instagram)</label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div class="input-group input-group-outline mb-3">
+                <label class="form-label">Link (Url)</label>
+                <input type="text" asp-for="Url" class="form-control" />
+            </div>
+            <div class="input-group input-group-outline mb-3">
+                <label class="form-label">İkon Kodu (Örn: fab fa-instagram)</label>
+                <input type="text" asp-for="Icon" class="form-control" />
+            </div>
+            <button class="btn bg-gradient-dark">Kaydet</button>
+        </form>
+    </div>
+</div>
+

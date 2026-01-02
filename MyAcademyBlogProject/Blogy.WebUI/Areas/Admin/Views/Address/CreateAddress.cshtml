@@ -1,0 +1,51 @@
+@model CreateAddressDto
+@{
+    ViewData["Title"] = "Yeni Adres Ekle";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="col-12 mt-4">
+    <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+            <h6 class="mb-0">Yeni İletişim Bilgisi Ekle</h6>
+        </div>
+        <div class="card-body p-3">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Adres Detayı</label>
+                        <div class="input-group input-group-outline">
+                            <input type="text" asp-for="AddressDetail" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Çalışma Saatleri / Açıklama</label>
+                        <div class="input-group input-group-outline">
+                            <input type="text" asp-for="Description" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Telefon</label>
+                        <div class="input-group input-group-outline">
+                            <input type="text" asp-for="Phone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <div class="input-group input-group-outline">
+                            <input type="email" asp-for="Email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Harita URL (Embed Link)</label>
+                        <div class="input-group input-group-outline">
+                            <textarea asp-for="MapLocation" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn bg-gradient-primary mt-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,36 +1,94 @@
 @model List<ResultBlogDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Blog Listesi";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
     int count = 0;
 }
 
-<h3>Bloglar</h3>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
 
-<table class="table table-bordered table-hover">
-    <tr>
-        <th>#</th>
-        <th>Blog Başlığı</th>
-        <th>Açıklama</th>
-        <th>Kategoriler</th>
-        <th>İşlemler</th>
-    </tr>
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-danger shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
+                        <h6 class="text-white text-capitalize ps-3 mb-0">Blog Yazıları</h6>
 
-    @foreach (var item in Model)
-    {
-        count++;
-        <tr>
-            <th>@count</th>
-            <td><img src="@item.CoverImage" style="height:75px;width:75px" /> @item.Title</td>
-            <td>@item.Description</td>
-            <td>@item.Category.CategoryName</td>
-            <td>
-                <a href="/Admin/Blog/DeleteBlog/@item.Id" onclick="return confirm('Bu öğeyi kalıcı olarak silmek istediğinizden emin misiniz?')" class="btn btn-danger">Sil</a>
-                <a href="/Admin/Blog/UpdateBlog/@item.Id" class="btn btn-info">Güncelle</a>
-            </td>
-        </tr>
-    }
-</table>
+                        <a href="/Admin/Blog/CreateBlog" class="btn btn-white btn-sm me-3 mb-0 d-flex align-items-center">
+                            <i class="material-icons text-sm opacity-10 me-1"></i> Yeni Blog Yaz
+                        </a>
+                    </div>
+                </div>
 
-<a href="/Admin/Blog/CreateBlog" class="btn btn-primary">Yeni Blog Oluştur</a>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">#</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kapak & Başlık</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tarih</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kategori</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0 ps-3">@count</p>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div>
+                                                    <img src="@item.CoverImage" class="avatar avatar-sm me-3 border-radius-lg" alt="blog_img">
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">@item.Title</h6>
+                                                    <p class="text-xs text-secondary mb-0">
+                                                        @(item.Writer != null ? item.Writer.FullName : "Yazar Bilinmiyor")
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                @(((DateTime)item.CreatedDate).ToString("dd MMM yyyy"))
+                                            </p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            @if (item.Category != null)
+                                            {
+                                                <span class="badge badge-sm bg-gradient-secondary">@item.Category.CategoryName</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-sm bg-gradient-light text-dark">Kategorisiz</span>
+                                            }
+                                        </td>
 
+                                        <td class="align-middle text-center">
+                                            <a href="/Blog/BlogDetails/@item.Id" target="_blank" class="btn btn-link text-info px-3 mb-0">
+                                                <i class="material-symbols-rounded text-sm me-2">visibility</i>Sitede Gör
+                                            </a>
+
+                                            <a href="/Admin/Blog/UpdateBlog/@item.Id" class="btn btn-link text-dark px-3 mb-0">
+                                                <i class="material-symbols-rounded text-sm me-2"></i>Düzenle
+                                            </a>
+
+                                            <a href="/Admin/Blog/DeleteBlog/@item.Id" onclick="return confirm('Bu blog yazısını silmek istediğinize emin misiniz?')" class="btn btn-link text-danger px-3 mb-0">
+                                                <i class="material-symbols-rounded text-sm me-2"></i>Sil
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

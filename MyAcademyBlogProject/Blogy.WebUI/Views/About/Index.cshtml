@@ -1,0 +1,84 @@
+@using Blogy.Business.DTOs.AboutDtos
+@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/UILayout/Index.cshtml";
+    var item = Model.FirstOrDefault();
+}
+
+<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=1200&q=80');">
+    <div class="container">
+        <div class="row same-height justify-content-center">
+            <div class="col-md-6">
+                <div class="post-entry text-center">
+                    <h1 class="mb-4">Hakkımızda</h1>
+                    <p class="lead mb-4 text-white">Biz kimiz, ne yapıyoruz ve neden buradayız?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (item != null)
+{
+    <div class="section sec-halfs py-5">
+        <div class="container">
+
+            <div class="half-content d-lg-flex align-items-center mb-5">
+                <div class="img" style="background-image: url('@item.Image1'); min-height: 400px;" data-aos="fade-in" data-aos-delay="100">
+                </div>
+                <div class="text p-5">
+                    <h2 class="heading text-primary mb-3">@item.Title1</h2>
+                    <p class="mb-4 text-muted" style="line-height: 1.8; font-size: 1.1rem;">
+                        @item.Description1
+                    </p>
+                </div>
+            </div>
+
+            <div class="half-content d-lg-flex align-items-center">
+                <div class="img order-md-2" style="background-image: url('@item.Image2'); min-height: 300px;" data-aos="fade-in">
+                </div>
+                <div class="text p-5 order-md-1 bg-light">
+                    <span class="d-block text-uppercase text-secondary text-sm font-weight-bold mb-2">Hedefimiz</span>
+                    <h2 class="heading text-primary mb-3">@item.Title2</h2>
+
+                    <blockquote class="blockquote">
+                        <p class="mb-0" style="font-style: italic; font-size: 1.2rem; color: #555;">
+                            "@item.Description2"
+                        </p>
+                    </blockquote>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section bg-light py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="text-primary display-4">5+</h2>
+                    <p class="text-uppercase font-weight-bold">Yıllık Deneyim</p>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="text-primary display-4">100+</h2>
+                    <p class="text-uppercase font-weight-bold">Makale</p>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="text-primary display-4">10K+</h2>
+                    <p class="text-uppercase font-weight-bold">Okuyucu</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-5 mb-5">
+        <div class="alert alert-warning text-center">
+            Sistemde gösterilecek "Hakkımızda" verisi bulunamadı. Lütfen Admin panelinden içerik ekleyiniz.
+        </div>
+    </div>
+}

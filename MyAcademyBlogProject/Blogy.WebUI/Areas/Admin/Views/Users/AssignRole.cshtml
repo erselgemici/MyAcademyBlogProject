@@ -1,0 +1,70 @@
+@model List<AssignRoleDto>
+@{
+    ViewData["Title"] = "Rol Atama";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<h3>Rol Atama Sayfası</h3>
+<h4>@ViewBag.fullName kullanıcısına rol atama yapabilirsiniz</h4>
+@* <form method="post">
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="form-check">
+            <input type="hidden" asp-for="@Model[i].RoleId"/>
+            <input type="hidden" asp-for="@Model[i].UserId"/>
+            <input type="hidden" asp-for="@Model[i].RoleName"/>
+            <input type="checkbox" asp-for="@Model[i].RoleExists" class="form-check-input" />
+            <label class="form-check-label">@Model[i].RoleName</label>
+        </div>
+    }
+    <br />
+    <button class="btn btn-outline-primary">Rol Ata</button>
+
+</form> *@
+<div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+        <div class="card my-4">
+
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Rol Atama İşlemi</h6>
+                    <p class="text-white text-sm ps-3 mb-0 opacity-8">
+                        Kullanıcı: <span class="font-weight-bold text-warning">@ViewBag.fullName</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card-body px-4 pb-2">
+                <p class="text-sm mb-4">Lütfen bu kullanıcıya vermek istediğiniz yetkileri aşağıdan seçiniz:</p>
+
+                <form method="post">
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                        <input type="hidden" asp-for="@Model[i].UserId" />
+                        <input type="hidden" asp-for="@Model[i].RoleName" />
+
+                        <div class="form-check form-switch ps-0 mb-3 d-flex align-items-center">
+                            <input class="form-check-input ms-auto" type="checkbox" asp-for="@Model[i].RoleExists" id="role_@i">
+                            <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0 font-weight-bold" for="role_@i">
+                                @Model[i].RoleName Rolü
+                            </label>
+                        </div>
+                    }
+
+                    <hr class="horizontal dark my-4">
+
+                    <div class="d-flex justify-content-end">
+                        <a href="/Admin/Users/Index" class="btn btn-outline-secondary btn-sm mb-0 me-2">İptal</a>
+                        <button type="submit" class="btn bg-gradient-primary btn-sm mb-0">
+                            <i class="material-symbols-rounded text-sm me-2">save</i> Değişiklikleri Kaydet
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

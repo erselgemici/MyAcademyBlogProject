@@ -1,0 +1,58 @@
+@model Blogy.Business.DTOs.UserDtos.EditProfileDto
+
+@{
+    ViewData["Title"] = "Profili Düzenle";
+    Layout = "~/Areas/User/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Bilgileri Güncelle</h4>
+            <p class="card-description">Profil bilgilerinizi buradan değiştirebilirsiniz.</p>
+
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+
+                <div class="form-group text-center mb-4">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" />
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Yeni Fotoğraf Seç</label>
+                    <input type="file" name="ImageFile" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Ad</label>
+                    <input type="text" class="form-control" name="FirstName" value="@Model.FirstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Soyad</label>
+                    <input type="text" class="form-control" name="LastName" value="@Model.LastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" name="UserName" value="@Model.UserName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Email</label>
+                    <input type="email" class="form-control" name="Email" value="@Model.Email" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold text-dark">Telefon</label>
+                    <input type="text" class="form-control" name="PhoneNumber" value="@Model.PhoneNumber">
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg mr-2">Kaydet</button>
+                <a href="/User/Profile/Index" class="btn btn-light btn-lg">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

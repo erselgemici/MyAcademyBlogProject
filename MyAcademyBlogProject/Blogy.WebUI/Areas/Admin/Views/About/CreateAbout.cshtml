@@ -1,0 +1,66 @@
+@model CreateAboutDto
+@{
+    ViewData["Title"] = "Yeni Hakkımızda";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="card my-4 mx-4">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Hakkımızda Ekle</h6>
+        </div>
+    </div>
+    <div class="card-body">
+        <form method="post">
+
+            <h5 class="mb-3">Bölüm 1</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Başlık 1</label>
+                        <input type="text" asp-for="Title1" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Görsel URL 1</label>
+                        <input type="text" asp-for="Image1" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Açıklama 1</label>
+                        <textarea asp-for="Description1" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <h5 class="mb-3">Bölüm 2</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Başlık 2</label>
+                        <input type="text" asp-for="Title2" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Görsel URL 2</label>
+                        <input type="text" asp-for="Image2" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="input-group input-group-outline mb-3">
+                        <label class="form-label">Açıklama 2</label>
+                        <textarea asp-for="Description2" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn bg-gradient-dark mt-3">Kaydet</button>
+        </form>
+    </div>
+</div>
+

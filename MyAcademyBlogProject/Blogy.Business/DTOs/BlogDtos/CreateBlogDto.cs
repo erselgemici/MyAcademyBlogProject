@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Blogy.Business.DTOs.BlogDtos
 {
     public class CreateBlogDto
@@ -14,5 +8,7 @@ namespace Blogy.Business.DTOs.BlogDtos
         public string? BlogImage1 { get; set; }
         public string? BlogImage2 { get; set; }
         public int CategoryId { get; set; }
+        public int WriterId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

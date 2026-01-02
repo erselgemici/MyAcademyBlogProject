@@ -1,38 +1,84 @@
 @model UpdateBlogDto
 @{
     ViewData["Title"] = "Blog Güncelle";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
 }
 
-<h3>Blog Güncelle</h3>
 
-<form method="post">
-    <input type="hidden" asp-for="Id"/>
-    <label>Blog Başlığı</label>
-    <input type="text" asp-for="Title" class="form-control" />
-    <span class="text-danger" asp-validation-for="Title"></span>
-    <br />
-    <label>Açıklama</label>
-    <textarea type="text" asp-for="Description" class="form-control" rows="6"></textarea>
-    <span class="text-danger" asp-validation-for="Description"></span>
-    <br />
-    <label>Kapak Resmi</label>
-    <input type="text" asp-for="CoverImage" class="form-control" />
-    <span class="text-danger" asp-validation-for="CoverImage"></span>
-    <br />
-    <label>Blog Resmi 1</label>
-    <input type="text" asp-for="BlogImage1" class="form-control" />
-    <span class="text-danger" asp-validation-for="BlogImage1"></span>
-    <br />
-    <label>Blog Resmi 2</label>
-    <input type="text" asp-for="BlogImage2" class="form-control" />
-    <span class="text-danger" asp-validation-for="BlogImage2"></span>
-    <br />
-    <label>Kategori</label>
-    <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.categories">
-        <option selected>Kategori Seçiniz</option>
-    </select>
-    <span class="text-danger" asp-validation-for="CategoryId"></span>
-    <br />
-    <button class="btn btn-primary mt-2">Güncelle</button>
-</form>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-danger shadow-dark border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3 mb-0">Blog Güncelle</h6>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="input-group input-group-outline mb-4 is-filled">
+                            <label class="form-label">Blog Başlığı</label>
+                            <input type="text" asp-for="Title" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Title" class="text-danger text-xs"></span>
+
+                        <div class="mb-4">
+                            <label class="form-label text-dark font-weight-bold ms-1">Kategori</label>
+                            <div class="input-group input-group-outline is-filled">
+                                <select asp-for="CategoryId" asp-items="@ViewBag.categories" class="form-control form-select px-3">
+                                    <option value="" disabled>Kategori Seçiniz</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="CategoryId" class="text-danger text-xs"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-dark font-weight-bold ms-1">Etiketler (Ctrl ile seçim yapabilirsiniz)</label>
+                            <div class="input-group input-group-outline is-filled">
+                                <select name="TagIds" asp-items="@ViewBag.tags" class="form-control form-select px-3" multiple style="height: 100px;">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group input-group-outline mb-4 is-filled">
+                                    <label class="form-label">Kapak Resmi (Url)</label>
+                                    <input type="text" asp-for="CoverImage" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-outline mb-4 is-filled">
+                                    <label class="form-label">Blog Görsel 1 (Url)</label>
+                                    <input type="text" asp-for="BlogImage1" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-outline mb-4 is-filled">
+                                    <label class="form-label">Blog Görsel 2 (Url)</label>
+                                    <input type="text" asp-for="BlogImage2" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group input-group-outline mb-4 is-filled">
+                            <label class="form-label">İçerik / Açıklama</label>
+                            <textarea asp-for="Description" class="form-control" rows="8"></textarea>
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger text-xs"></span>
+
+                        <div class="d-flex justify-content-end">
+                            <a href="/Admin/Blog/Index" class="btn btn-outline-secondary me-2">Vazgeç</a>
+                            <button type="submit" class="btn bg-gradient-danger">Güncelle</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

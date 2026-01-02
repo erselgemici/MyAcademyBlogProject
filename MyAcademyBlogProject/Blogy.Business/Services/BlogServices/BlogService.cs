@@ -2,11 +2,7 @@ using AutoMapper;
 using Blogy.Business.DTOs.BlogDtos;
 using Blogy.DataAccess.Repositories.BlogRepositories;
 using Blogy.Entity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace Blogy.Business.Services.BlogServices
 {
@@ -15,6 +11,7 @@ namespace Blogy.Business.Services.BlogServices
         public async Task CreateAsync(CreateBlogDto createDto)
         {
             var entity = _mapper.Map<Blog>(createDto);
+            entity.CreatedDate = DateTime.Now;
             await _blogRepository.CreateAsync(entity);
         }
 
@@ -29,6 +26,12 @@ namespace Blogy.Business.Services.BlogServices
             return _mapper.Map<List<ResultBlogDto>>(values);
         }
 
+        public async Task<List<ResultBlogDto>> GetBlogsByCategoryIdAsync(int categoryId)
+        {
+            var values = await _blogRepository.GetAllAsync(x => x.CategoryId == categoryId);
+            return _mapper.Map<List<ResultBlogDto>>(values);
+        }
+
         public async Task<List<ResultBlogDto>> GetBlogsWithCategoriesAsync()
         {
             var values = await _blogRepository.GetBlogsWithCategoriesAsync();
@@ -39,6 +42,18 @@ namespace Blogy.Business.Services.BlogServices
         {
             var value = await _blogRepository.GetByIdAsync(id);
             return _mapper.Map<UpdateBlogDto>(value);
+        }
+
+        public async Task<List<ResultBlogDto>> GetLastNBlogsAsync(int count)
+        {
+            var values = await _blogRepository.GetLastNBlogsAsync(count);
+            return _mapper.Map<List<ResultBlogDto>>(values);
+        }     
+
+        public async Task<ResultBlogDto> GetSingleByIdAsync(int id)
+        {
+            var value = await _blogRepository.GetByIdAsync(id);
+            return _mapper.Map<ResultBlogDto>(value);
         }
 
         public async Task UpdateAsync(UpdateBlogDto updateDto)

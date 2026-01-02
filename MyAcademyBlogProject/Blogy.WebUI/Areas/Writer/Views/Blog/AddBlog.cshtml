@@ -1,0 +1,60 @@
+@model Blogy.Business.DTOs.BlogDtos.CreateBlogDto
+
+@{
+    ViewData["Title"] = "Yeni Blog Oluştur";
+    Layout = "~/Areas/Writer/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Yeni Blog Yazısı</h4>
+            <p class="card-description"> Blog detaylarını aşağıya giriniz </p>
+
+            <form class="forms-sample" method="post" action="/Writer/Blog/AddBlog">
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Başlığı</label>
+                    <input type="text" class="form-control" name="Title" placeholder="Başlık giriniz" required>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Kategori</label>
+                    <select name="CategoryId" class="form-control">
+                        <option value="">Kategori Seçiniz</option>
+                        @if (ViewBag.cv != null)
+                        {
+                            foreach (var item in (List<SelectListItem>)ViewBag.cv)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Kapak Görseli (CoverImage)</label>
+                    <input type="text" class="form-control" name="CoverImage" placeholder="Kapak resmi linki">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Görseli 1 (BlogImage1)</label>
+                    <input type="text" class="form-control" name="BlogImage1" placeholder="İçerik resmi 1 linki">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Görseli 2 (BlogImage2)</label>
+                    <input type="text" class="form-control" name="BlogImage2" placeholder="İçerik resmi 2 linki">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">İçerik / Açıklama (Description)</label>
+                    <textarea class="form-control" name="Description" rows="10" placeholder="Blog içeriğini buraya yazınız"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <button type="button" class="btn btn-light">İptal</button>
+            </form>
+        </div>
+    </div>
+</div>

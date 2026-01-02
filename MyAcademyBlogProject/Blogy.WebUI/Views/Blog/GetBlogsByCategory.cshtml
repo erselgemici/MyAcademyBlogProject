@@ -1,0 +1,73 @@
+@using PagedList.Core
+@using PagedList.Core.Mvc
+@model PagedList<ResultBlogDto>
+@{
+    ViewData["Title"] = "Kategori: " + ViewBag.categoryName;
+    Layout = "~/Views/UILayout/Index.cshtml";
+
+    var customOptions = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
+    customOptions.LinkToPreviousPageFormat = "Önceki";
+    customOptions.LinkToNextPageFormat = "Sonraki";
+}
+
+<div class="section search-result-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading">Kategori: @ViewBag.categoryName</div>
+            </div>
+        </div>
+        <div class="row posts-entry">
+            <div class="col-lg-8">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-entry d-flex blog-entry-search-item">
+                        <a href="#" class="img-link me-4">
+                            <img src="@item.CoverImage" alt="Image" class="img-fluid">
+                        </a>
+                        <div>
+                            <span class="date">@item.CreatedDate &bullet; <a href="#">@ViewBag.categoryName</a></span>
+                            <h2><a href="#">@item.Title</a></h2>
+                            <p>
+                                @(item.Description.Length < 100 ? item.Description
+                                                            : item.Description.Substring(0, 100) + "...")
+                        </p>
+                        <p><a href="/Blog/BlogDetails/@item.Id" class="btn btn-sm btn-outline-primary">Devamını Oku</a></p>
+                    </div>
+                </div>
+                                }
+
+                <div class="row text-start pt-5 border-top">
+                    <div class="col-md-12">
+                        <pager asp-controller="Blog"
+                               asp-action="GetBlogsByCategory"
+                               asp-route-id="@ViewBag.categoryId"
+                               list="@Model"
+                               options="@customOptions">
+                        </pager>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 sidebar">
+
+                <div class="sidebar-box search-form-wrap mb-4">
+                    <form action="#" class="sidebar-search-form">
+                        <span class="bi-search"></span>
+                        <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+                    </form>
+                </div>
+                <!-- END sidebar-box -->
+                @await Component.InvokeAsync("_BlogsByCategoryLatestBlogsComponent")
+                <!-- END sidebar-box -->
+                @await Component.InvokeAsync("_CategoryListSidebarComponent")
+               
+                <!-- END sidebar-box -->
+                @await Component.InvokeAsync("_TagListSidebarComponent")
+
+            </div>
+        </div>
+    </div>
+</div>
+

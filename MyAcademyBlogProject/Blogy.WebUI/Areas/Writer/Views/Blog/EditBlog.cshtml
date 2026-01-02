@@ -1,0 +1,71 @@
+@using Blogy.Business.DTOs.BlogDtos
+@model UpdateBlogDto
+
+@{
+    ViewData["Title"] = "Blog Düzenle";
+    Layout = "~/Areas/Writer/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Blog Düzenle</h4>
+            <p class="card-description"> Mevcut blog yazısını düzenliyorsunuz </p>
+
+            <form class="forms-sample" method="post" action="/Writer/Blog/EditBlog">
+
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
+                <input type="hidden" name="WriterId" value="@Model.WriterId" />
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Başlığı</label>
+                    <input type="text" class="form-control" name="Title" value="@Model.Title" placeholder="Başlık" required>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Kategori</label>
+                    <select name="CategoryId" class="form-control">
+                        @if (ViewBag.cv != null)
+                        {
+                            foreach (var item in (List<SelectListItem>)ViewBag.cv)
+                            {
+                                if (item.Value == Model.CategoryId.ToString())
+                                {
+                                    <option value="@item.Value" selected>@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Kapak Görseli</label>
+                    <input type="text" class="form-control" name="CoverImage" value="@Model.CoverImage">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Görseli 1</label>
+                    <input type="text" class="form-control" name="BlogImage1" value="@Model.BlogImage1">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">Blog Görseli 2</label>
+                    <input type="text" class="form-control" name="BlogImage2" value="@Model.BlogImage2">
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: bold">İçerik / Açıklama</label>
+                    <textarea class="form-control" name="Description" rows="10">@Model.Description</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Güncelle</button>
+                <a href="/Writer/Blog/MyBlogList" class="btn btn-light">İptal</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@model CreateCommentDto
+@{
+    ViewData["Title"] = "Yeni Yorum Oluştur";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="card my-4 mx-4">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+        <div class="bg-gradient-success shadow-dark border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Yeni Yorum Oluştur</h6>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+
+            <div class="mb-4">
+                <label class="form-label text-dark font-weight-bold ms-1">Hangi Bloğa Yorum Yapılacak?</label>
+                <div class="input-group input-group-outline">
+                    <select asp-for="BlogId" asp-items="@ViewBag.blogs" class="form-control form-select px-3">
+                        <option value="" selected disabled>Lütfen bir blog seçiniz...</option>
+                    </select>
+                </div>
+                <span asp-validation-for="BlogId" class="text-danger text-xs ms-1"></span>
+            </div>
+
+            <div class="input-group input-group-outline mb-4">
+                <label class="form-label">Yorumunuz</label>
+                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+            </div>
+            <span asp-validation-for="Content" class="text-danger text-xs ms-1"></span>
+
+            <div class="d-flex justify-content-end">
+                <a href="/Admin/Comment/Index" class="btn btn-outline-secondary me-2">İptal</a>
+                <button type="submit" class="btn bg-gradient-success">Kaydet</button>
+            </div>
+
+        </form>
+    </div>
+</div>

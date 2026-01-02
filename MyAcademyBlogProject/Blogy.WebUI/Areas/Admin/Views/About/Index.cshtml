@@ -1,0 +1,136 @@
+@using Blogy.Business.DTOs.AboutDtos
+@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "Hakkımızda Yönetimi";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
+                    <h6 class="text-white text-capitalize ps-3">Hakkımızda Bölümleri</h6>
+
+                    <div class="pe-3">
+                        <a href="/Admin/About/GenerateFooterWithAI"
+                           onclick="showLoading(this)"
+                           class="btn btn-sm btn-warning mb-0 me-2 text-dark">
+                            <i class="material-icons text-sm me-1"></i>
+                            <span id="btnText">Footer AI Güncelle</span>
+                        </a>
+
+                        <a href="/Admin/About/CreateAbout" class="btn btn-sm btn-white text-primary mb-0">
+                            Yeni Ekle
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Başlık & Görsel</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">İçerik Detayları</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="width: 30%;">
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <img src="@(string.IsNullOrEmpty(item.Image1) ? "https://via.placeholder.com/150" : item.Image1)"
+                                                     class="avatar avatar-lg me-3 border-radius-lg" alt="img" style="object-fit: cover;">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">@item.Title1</h6>
+                                                <p class="text-xs text-secondary mb-0">ID: @item.Id</p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td style="width: 55%;">
+                                        <div class="d-flex flex-column">
+                                            <div class="mb-2">
+                                                <span class="badge badge-sm bg-gradient-light text-dark mb-1">Sayfa İçeriği</span>
+                                                <p class="text-xs text-secondary mb-0 text-truncate" style="max-width: 500px;">
+                                                    @item.Description1
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <span class="badge badge-sm bg-gradient-warning text-dark mb-1">
+                                                    <i class="material-icons text-xxs align-middle"></i> Footer (AI)
+                                                </span>
+                                                <p class="text-xs text-dark font-weight-bold mb-0 text-truncate" style="max-width: 500px;">
+                                                    @(string.IsNullOrEmpty(item.Description2) ? "Henüz içerik yok." : item.Description2)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <a href="/Admin/About/UpdateAbout/@item.Id" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Düzenle">
+                                            <i class="material-icons text-sm me-1"></i> Düzenle
+                                        </a>
+                                        <span class="mx-2">|</span>
+                                        <a href="/Admin/About/DeleteAbout/@item.Id" onclick="return confirm('Silmek istediğine emin misin?')" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Sil">
+                                            <i class="material-icons text-sm me-1"></i> Sil
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @if (Model.Count == 0)
+                    {
+                        <div class="text-center p-4">
+                            <span class="text-sm text-secondary">Kayıt bulunamadı.</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showLoading(element) {
+        var icon = element.querySelector("i");
+        icon.innerHTML = "sync";
+        icon.classList.add("fa-spin");
+        document.getElementById("btnText").innerText = "Oluşturuluyor...";
+        element.style.opacity = "0.7";
+        element.style.pointerEvents = "none";
+    }
+
+    @if (TempData["AiResult"] != null)
+    {
+            <text>
+                // Controller'dan gelen veriyi güvenli bir şekilde JS değişkenine alıyoruz
+                var aiText = @Html.Raw(Json.Serialize(TempData["AiResult"]));
+
+                Swal.fire({
+                    title: 'İşlem Başarılı!',
+                    html: `
+                        <p style="font-size: 14px; color: #555;">Yeni Footer içeriği oluşturuldu ve kaydedildi:</p>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-top: 10px; font-style: italic;">
+                            "${aiText}"
+                        </div>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'Tamam',
+                    confirmButtonColor: '#e91e63'
+                });
+            </text>
+    }
+</script>

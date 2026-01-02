@@ -1,0 +1,58 @@
+@model ResultContactDto
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+}
+
+<div class="card my-4 mx-4">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+        <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Mesaj Detayı</h6>
+        </div>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                        <label class="form-label">Gönderen Adı</label>
+                        <input type="text" value="@Model.Name" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                        <label class="form-label">Email</label>
+                        <input type="text" value="@Model.Email" class="form-control" disabled />
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group input-group-outline mb-3 is-filled">
+                <label class="form-label">Konu</label>
+                <input type="text" value="@Model.Subject" class="form-control" disabled />
+            </div>
+
+            <div class="input-group input-group-outline mb-3 is-filled">
+                <label class="form-label">Mesaj İçeriği</label>
+                <textarea class="form-control" rows="5" disabled>@Model.Message</textarea>
+            </div>
+
+            <hr class="horizontal dark my-3">
+
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" type="checkbox" asp-for="IsRead" id="flexSwitchCheckDefault">
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0 font-weight-bold" for="flexSwitchCheckDefault">
+                    Bu mesajı "Okundu" olarak işaretle
+                </label>
+            </div>
+
+            <div class="mt-4">
+                <a href="/Admin/Contact/Index" class="btn btn-outline-secondary">Geri Dön</a>
+                <button type="submit" class="btn bg-gradient-dark ms-2">Durumu Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
+

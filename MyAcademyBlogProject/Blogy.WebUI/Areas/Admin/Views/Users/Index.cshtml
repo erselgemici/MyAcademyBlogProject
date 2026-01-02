@@ -1,0 +1,94 @@
+@using Blogy.Business.DTOs.UserDtos
+@model List<ResultUserDto>
+
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";
+    Layout = "~/Areas/Admin/Views/Admin/Index.cshtml";
+    int count = 0;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Kullanıcı Listesi ve Rol İşlemleri</h6>
+                </div>
+            </div>
+
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">#</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kullanıcı</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mevcut Roller</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-3">
+                                            <p class="text-sm font-weight-bold mb-0">@count</p>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <i class="material-symbols-rounded text-lg opacity-10 me-3">person</i>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">@item.FullName</h6>
+                                                <p class="text-xs text-secondary mb-0">@@@item.UserName</p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">@item.Email</p>
+                                    </td>
+
+                                    <td>
+                                        @if (item.Roles != null && item.Roles.Count > 0)
+                                        {
+                                            foreach (var role in item.Roles)
+                                            {
+                                                // Rol ismine göre renk değişimi (Opsiyonel Güzellik)
+                                                string badgeClass = role == "Admin" ? "bg-gradient-danger" :
+                                                role == "Writer" ? "bg-gradient-warning" : "bg-gradient-info";
+
+                                                <span class="badge badge-sm @badgeClass me-1">@role</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-secondary text-xs font-weight-bold">Rol Yok</span>
+                                        }
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <a href="/Admin/Users/AssignRole/@item.Id" class="btn btn-link text-dark px-3 mb-0">
+                                            <i class="material-symbols-rounded text-sm me-2">manage_accounts</i>Rol Ata
+                                        </a>
+                                        <a href="/Admin/Users/DeleteUser/@item.Id"
+                                           class="btn btn-outline-danger btn-sm mb-0"
+                                           onclick="return confirm('Bu kullanıcıyı ve tüm verilerini silmek istediğinize emin misiniz? Bu işlem geri alınamaz!');">
+                                            <i class="material-symbols-rounded text-sm me-1">delete</i> Sil
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
